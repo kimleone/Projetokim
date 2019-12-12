@@ -1,42 +1,43 @@
-# KNN - PROPRIA IMPLEMENTAÇÃO
+# KNN - PROPRIA IMPLEMENTAÃ‡ÃƒO
 
 # Entradas: Valor de K, treino, teste, variavel resposta.
 
-# Saída: classificação de cada observação na amostra de teste
+# SaÃ­da: classificaÃ§Ã£o de cada observaÃ§Ã£o na amostra de teste
 
 # Algoritmo 
 
 # passo 1: selecionar um elemento da amostra de teste
-# passo 2: calcular a distancia entre o elemento selecionado e todos as observações da amostra de treino
+# passo 2: calcular a distancia entre o elemento selecionado e todos as observaÃ§Ãµes da amostra de treino
 # passo 3: ordenar as distancias obtidas
 # passo 4: selecionar K elementos com menor distancia da observacao selecionada no passo 1
-# passo 5: classificar a observação como a classe mais frequente nos K elementos com menor distancia
+# passo 5: classificar a observaÃ§Ã£o como a classe mais frequente nos K elementos com menor distancia
 # passo 6: repetir os passos 1-5 para todos os elementos da amostra de teste.
-# passo 7: retornar as predições de todos os elementos na amostra de teste
+# passo 7: retornar as prediÃ§Ãµes de todos os elementos na amostra de teste
 
 setwd("C:\\Users\\Kim Leone\\Dropbox\\Projeto")
 anuncios = read.csv('Social_Network_Ads.csv')
-anuncios <- anuncios[,3:5] #base de dados somente com as variáveis de interesse.
+anuncios <- anuncios[,3:5] #base de dados somente com as variÃ¡veis de interesse.
 indice <- sample(nrow(anuncios), nrow(anuncios)*0.75) #dividindo a base de dados (para criar teste e treino)
 treino <- anuncios[indice, ] 
 teste <- anuncios[-indice, ]
 teste["predict"] <- '-'
 
 
-distancia <- function(X1,Y1,X2,Y2){  #função para calcular a distancia dos elementos
-  d <- sqrt((X1-X2)^2+(Y1-Y2)^2)     #do conjunto teste em relação às do conjunto treino.
+distancia <- function(X1,Y1,X2,Y2){  #funÃ§Ã£o para calcular a distancia dos elementos
+  d <- sqrt((X1-X2)^2+(Y1-Y2)^2)     #do conjunto teste em relaÃ§Ã£o Ã s do conjunto treino.
   return(d)
 }
 K=7
 ds=NULL
-for(j in 1:100){   #calcular as distancias, ordena-las (em ordem crescente), usar 
-  for(i in 1:300){ #os K vizinhos mais proximos para prever a variável resposta
+
+for(j in 1:100){   #calcular as distancias, ordena-las (em ordem crescente), usar os K vizinhos mais proximos para prever a variÃ¡vel resposta
+  for(i in 1:300){ 
     ds[i] <-  distancia(teste[j,1],teste[j,2],treino[i,1],treino[i,2])
   }
-  d1 <- order(ds)[1:K]                        #d1 é o vetor que contem as posições dos vizinhos mais proximos
+  d1 <- order(ds)[1:K]                        #d1 Ã© o vetor que contÃªm as posiÃ§Ãµes dos vizinhos mais prÃ³ximos
   for(i in 1:K){
-    if(mean(treino[d1,3]) < 0.5){teste[j,4] <- 0}else{teste[j,4] <- 1}   #A condicional verifica a média 
-  }                                                                #da classificação dos K vizinhos mais
+    if(mean(treino[d1,3]) < 0.5){teste[j,4] <- 0}else{teste[j,4] <- 1}   #A condicional verifica a mÃ©dia 
+  }                                                                #da classificaÃ§Ã£o dos K vizinhos mais
                                                                    # proximos para classificar a amostra teste.
 }
 
@@ -60,7 +61,7 @@ sum(teste[ ,3] == teste[ ,4])
 # }
 
 # Colocar dentro da funcao MeuKNN
-# Repetir a funcao varias vezes e identificar a taxa de acerto com precisão, para K = 7
+# Repetir a funcao varias vezes e identificar a taxa de acerto com precisÃ£o, para K = 7
 
 
 anuncios <- read.csv(choose.files())
@@ -146,7 +147,7 @@ class(pred)
 
 # Repetir o processo acima, para varios valores de K, e identificar o melhor K. 
 # agora usando a funcao kknn
-# faça um gráfico da taxa de acerto alcançada em funçao de K
+# faÃ§a um grÃ¡fico da taxa de acerto alcanÃ§ada em funÃ§ao de K
 library(kknn)
 reps = 500
 acerto = NULL
@@ -195,7 +196,7 @@ acerto[13]
 #############################
 
 
-# KNN para Regressão!
+# KNN para RegressÃ£o!
 
 library(MASS)
 data(Boston)
@@ -227,7 +228,7 @@ Sys.sleep(1)
 }
 
 # fazer a implementacao propria ajustada para o problema de regressao
-# descobrir qual é o melhor K para esses dados
+# descobrir qual Ã© o melhor K para esses dados
 
 # Sys.sleep(1)
 
@@ -310,7 +311,7 @@ for(K in 1:length(kas)){
 
     pred = knn$fitted.values
     obsv = teste[ , 2]
-    results[i] = mean((pred - obsv)^2)# === erro quadratico médio
+    results[i] = mean((pred - obsv)^2)# === erro quadratico mÃ©dio
 
   } 
   erro[K] = mean(results)
@@ -345,8 +346,8 @@ eqm = mean((pred - obsv)^2)
 
 ####
 # No Boston Dataset, ha muito mais variaveis para se utilizar
-# Agora, descobrir qual é o melhor ajuste KNN (qual o melhor k do knn) quando utilizado todas as variaveis disponiveis??
-# Compare os erros quadraticos médios EQM obtidos considerando diferentes conjuntos de variaveis
+# Agora, descobrir qual Ã© o melhor ajuste KNN (qual o melhor k do knn) quando utilizado todas as variaveis disponiveis??
+# Compare os erros quadraticos mÃ©dios EQM obtidos considerando diferentes conjuntos de variaveis
 
 
 
@@ -383,7 +384,7 @@ knn <- kknn(formula = medv ~.,
 
 pred = knn$fitted.values
 obsv = teste[ , 14]
-results[i] = mean((pred - obsv)^2)# === erro quadratico médio
+results[i] = mean((pred - obsv)^2)# === erro quadratico mÃ©dio
 
   }
   
