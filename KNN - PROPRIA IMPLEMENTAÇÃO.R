@@ -48,9 +48,9 @@ for(i in 1:100){                    #comparando as colunas predict com Purchased
   if(teste[i,3] != teste[i,4]){     #verificar quantos erros foram cometidos.
     erro=erro+1
   }}
-100-erro
 
-sum(teste[ ,3] == teste[ ,4])
+
+acuracia = sum(teste[ ,3] == teste[ ,4])
 
 
 
